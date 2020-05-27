@@ -2,32 +2,101 @@
 	// Set logged in user id: This is just a simulation of user login. We haven't implemented user log in
 	// But we will assume that when a user logs in, 
 	// they are assigned an id in the session variable to identify them across pages
-	//if (isset($_POST['name'])){
-	//$user_id = $_POST['name'];}
-	//else{
-	//	$user_id=null;
-	//}
-
+	$numcomment=0;
+	$APid = 1;
     if (isset($_COOKIE['name'])){
 		$user_id=$_COOKIE['name'];
 	}
 	else {
 		$user_id=null;
 	}
-    //$user_id = 1;
+	//$user_id = 1;
+	if (isset($_COOKIE['sort'])){
+   
+		$sort=$_COOKIE['sort'];
+	}
+	else{
+		$sort = 'created_at';
+	}
+
+	$username = null;
+	$host = getenv('DB_HOST');
+	if (!isset($host)){
+		$host = 'localhost';
+	}
+	$username = getenv('DB_USERNAME');
+	if ($username==null){
+		$username = 'root';
+	}
+	$password = getenv('DB_PASSWORD');
+	if ($password==null){
+		$password = '';
+	}
+	$database = getenv('DB_DATABASE');
+	if ($database==null){
+		$database = 'comment-reply-system';
+	}
+	
     
-  
-    
-    // connect to database
-	$db = mysqli_connect("localhost", "root", "", "comment-reply-system");
+	// connect to database
+	$db = mysqli_connect($host, $username, $password, $database);
+	
+	//$db = mysqli_connect($host, $username, "", "comment-reply-system");
+	
+	
 	// get post with id 1 from database
-	$post_query_result = mysqli_query($db, "SELECT * FROM posts WHERE id=1");
+	$post_query_result = mysqli_query($db, "SELECT * FROM posts WHERE id=$APid");
 	$post = mysqli_fetch_assoc($post_query_result);
 
 	// Get all comments from database
-	$comments_query_result = mysqli_query($db, "SELECT * FROM comments WHERE post_id=" . $post['id'] . " ORDER BY created_at DESC");
+	//debug_to_console("SELECT * FROM comments WHERE post_id=" . $post['id'] . " ORDER BY " .$sort. " DESC");
+	$comments_query_result = mysqli_query($db, "SELECT * FROM comments WHERE post_id=" . $post['id'] . " ORDER BY " .$sort. " DESC");
 	$comments = mysqli_fetch_all($comments_query_result, MYSQLI_ASSOC);
+	
+	
+	function debug_to_console($data) {
+		$output = $data;
+		if (is_array($output))
+			$output = implode(',', $output);
+	
+		echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+	}
 
+
+	$average_work = mysqli_query($db, "SELECT AVG(ap_workload) 'Workload' FROM comments WHERE post_id = $APid");
+	$average_load = mysqli_fetch_assoc($average_work);
+	$average_workload = $average_load['Workload'];
+	$average_workload = round($average_workload,1);
+	//debug_to_console($average_workload);
+	$average_teach = mysqli_query($db, "SELECT AVG(teacher) 'Teacher' FROM comments WHERE post_id = $APid");
+	$average_er = mysqli_fetch_assoc($average_teach);
+	$average_teacher = $average_er['Teacher'];
+	$average_teacher = round($average_teacher,1);
+
+	$average_diffi = mysqli_query($db, "SELECT AVG(test) 'Test' FROM comments WHERE post_id = $APid");
+	$average_culty = mysqli_fetch_assoc($average_diffi);
+	$average_difficulty = $average_culty['Test'];
+	$average_difficulty = round($average_difficulty,1);
+
+	$average_f = mysqli_query($db, "SELECT AVG(fun) 'Fun' FROM comments WHERE post_id = $APid");
+	$average_un = mysqli_fetch_assoc($average_f);
+	$average_fun = $average_un['Fun'];
+	$average_fun = round($average_fun,1);
+
+
+
+
+	//$average_workload = $average_load[0];
+	//$average_workload = mysqli_fetch_row($average_work);
+	
+	//$finfo = $average_work->fetch_field(); 
+
+   //$average_workload = $finfo;
+        
+    
+    
+	
+	//$average_workload=$average_load[0];
 	// Receives a user id and returns the username
 	function getUsernameById($id)
 	{
@@ -104,8 +173,44 @@ if (isset($_POST['comment_posted'])) {
 		<textarea class='form-control' name='reply_text' id='reply_text' cols='30' rows='2'></textarea>
 		<button class='btn btn-primary btn-xs pull-right submit-reply'>Submit reply</button>
 	</form>*/
+	$colors = (int)$_POST['colors'];
+	$bg = "";
+	if ($colors%2==1){
+		$bg = "#85C2EF";
+	}
+	else{
+		$bg = "#97D892";
+	}
 	if ($result) {
-		$comment = "<div class='comment clearfix'>
+		$comment = "<div class='comment clearfix' >
+
+								<table style='table-layout: fixed; width: 100% ;background-color:".trim($bg,'"')."' onload='bkg();' id = 'unocomment". $inserted_comment['id'] ."'>
+								
+									<colgroup>
+
+										<col span='1' style='width: 10%;'>
+										<col span='1' style='width: 90%;'>
+									</colgroup>
+									<tbody>
+										<tr>
+											<td style='text-align:center;'>
+											<span class='comment-date'>" . date('F j, Y ', strtotime($inserted_comment['created_at'])) . "</span>
+											</br><u>Workload</u></br> ". $inserted_comment['ap_workload'] . " </br>
+												<u>Teacher </u></br>" . $inserted_comment['teacher'] . " </br>
+												<u>Difficulty </u></br>" . $inserted_comment['test'] . " </br>
+												<u>Fun </u></br>" . $inserted_comment['fun'] . "</br>
+												<a class='likes' href='#' id=" . $inserted_comment['id'] . " data-id=". $inserted_comment['id'] ."> <img src='thumbs.png' height='12' width='12'>" . $inserted_comment['likes'] ."</a>
+											</td>
+											<td style='vertical-align:middle; overflow-wrap:anywhere;'>
+												<p>" . $inserted_comment['body'] . "</p>
+											</td>
+										</tr>
+									</tbody>
+							</div>
+
+
+							</TABLE>";
+		/*$comment = "<div class='comment clearfix'>
 					<div class='comment-details'>
 						<span class='comment-date'>" . date('F j, Y ', strtotime($inserted_comment['created_at'])) . "</span>
 						<p> Workload: ". $inserted_comment['ap_workload'] . " / 5 </p>
@@ -117,7 +222,7 @@ if (isset($_POST['comment_posted'])) {
 
 					</div>
 					
-				</div>";
+				</div>"; */
 		$comment_info = array(
 			'comment' => $comment,
 			'comments_count' => getCommentsCountByPostId(1)
@@ -164,25 +269,24 @@ if (isset($_POST['like_attempt'])) {
 	global $db;
 	$comment_id = $_POST['comment_id']; 
 	$name = $_POST['name'];
-	$comment_id = $_POST['comment_id']; 
 	
-	// insert reply into database
-	$sql = "SELECT `comment_id`, `user_id` FROM `likes` WHERE 'comment_id' = $comment_id AND 'user_id' = '$name'";
+	$sql = "SELECT `comment_id`, `user_id` FROM `likes` WHERE `comment_id` LIKE $comment_id AND `user_id` LIKE '$user_id'";
+	//debug_to_console($sql);
 	$result = mysqli_query($db, $sql);
-	
-	if ($result){
+	//debug_to_console(mysqli_num_rows($result));
+	if (mysqli_num_rows($result)>0){
 		echo"error";
 		exit();
 	}
 	else{
-		$sql = "INSERT INTO `likes`(`comment_id`, `user_id`) VALUES ($comment_id,'$name')";
+		$sql = "INSERT INTO `likes`(`comment_id`, `user_id`) VALUES ($comment_id,'$user_id')";
 		$result = mysqli_query($db, $sql);
-
 		$res = mysqli_query($db, "SELECT * FROM comments WHERE id=$comment_id");
 		$comment = mysqli_fetch_assoc($res);
 		$comment_likes=$comment['likes'] + 1;
 		$sql= "UPDATE `comments` SET `likes`= $comment_likes WHERE id = $comment_id	";
 		$result = mysqli_query($db, $sql);
+		
 		echo"Dank";
 		exit();
 	}
