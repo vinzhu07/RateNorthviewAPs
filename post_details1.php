@@ -96,10 +96,15 @@ error_reporting(E_ERROR);
 			<div class="row">
 				<div class=" post">
 
-					<h2 id="Titles"><?php echo $class_name ?></h2>
+					<h2 id="Titles"><?php echo $_POST["class"] ?></h2>
 
 					<div class="row">
-						<p class="col-md-6" id="description"> <?php echo $class_description ?> </p>
+						<p class="col-md-6" id="description">AP Computer Science A introduces students to computer science through programming.
+							Fundamental topics in this course include the design of solutions to problems, the use of data
+							structures to organize large sets of data, the development and implementation of algorithms
+							to process data and discover new information, the analysis of potential solutions, and the
+							ethical and social implications of computing systems. The course emphasizes object-oriented
+							programming and design using the Java programming language. </p>
 						<p class="col-md-6"><img src="img/APCSA.jpg" alt="Title" class="img-responsive center-block" style="width:90%;"></p>
 
 					</div>

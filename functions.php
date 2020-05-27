@@ -42,15 +42,31 @@
 	$db = mysqli_connect($host, $username, $password, $database);
 	
 	//$db = mysqli_connect($host, $username, "", "comment-reply-system");
-	
-	
+	$class_name="";
+	if (isset($_GET['class'])) {
+
+	$class = $_GET["class"];
+	if ($class == "CSA")
+		{$class_name = "AP Computer Science A";
+		$class_description = "AP Computer Science A introduces students to computer science through programming.
+		Fundamental topics in this course include the design of solutions to problems, the use of data
+		structures to organize large sets of data, the development and implementation of algorithms
+		to process data and discover new information, the analysis of potential solutions, and the
+		ethical and social implications of computing systems. The course emphasizes object-oriented
+		programming and design using the Java programming language.";
+		}
+	}
+		$APid=$class_name;
 	// get post with id 1 from database
-	$post_query_result = mysqli_query($db, "SELECT * FROM posts WHERE id=$APid");
-	$post = mysqli_fetch_assoc($post_query_result);
+	//$post_query_result = mysqli_query($db, "SELECT * FROM posts WHERE id=$APid");
+	//$post = mysqli_fetch_assoc($post_query_result);
 
 	// Get all comments from database
 	//debug_to_console("SELECT * FROM comments WHERE post_id=" . $post['id'] . " ORDER BY " .$sort. " DESC");
-	$comments_query_result = mysqli_query($db, "SELECT * FROM comments WHERE post_id=" . $post['id'] . " ORDER BY " .$sort. " DESC");
+	$comments_query_result = mysqli_query($db, "SELECT * FROM comments WHERE post_id= "."'$APid'"." ORDER BY " .$sort. " DESC");
+	debug_to_console($APid);
+	//debug_to_console("SELECT * FROM comments WHERE post_id=" . $APid . " ORDER BY " .$sort. " DESC");
+	//debug_to_console('SELECT * FROM comments WHERE post_id= "' . $APid . '" ORDER BY ' .$sort. ' DESC');
 	$comments = mysqli_fetch_all($comments_query_result, MYSQLI_ASSOC);
 	
 	
@@ -63,22 +79,22 @@
 	}
 
 
-	$average_work = mysqli_query($db, "SELECT AVG(ap_workload) 'Workload' FROM comments WHERE post_id = $APid");
+	$average_work = mysqli_query($db, "SELECT AVG(ap_workload) 'Workload' FROM comments WHERE post_id = '$APid'");
 	$average_load = mysqli_fetch_assoc($average_work);
 	$average_workload = $average_load['Workload'];
 	$average_workload = round($average_workload,1);
 	//debug_to_console($average_workload);
-	$average_teach = mysqli_query($db, "SELECT AVG(teacher) 'Teacher' FROM comments WHERE post_id = $APid");
+	$average_teach = mysqli_query($db, "SELECT AVG(teacher) 'Teacher' FROM comments WHERE post_id = '$APid'");
 	$average_er = mysqli_fetch_assoc($average_teach);
 	$average_teacher = $average_er['Teacher'];
 	$average_teacher = round($average_teacher,1);
 
-	$average_diffi = mysqli_query($db, "SELECT AVG(test) 'Test' FROM comments WHERE post_id = $APid");
+	$average_diffi = mysqli_query($db, "SELECT AVG(test) 'Test' FROM comments WHERE post_id = '$APid'");
 	$average_culty = mysqli_fetch_assoc($average_diffi);
 	$average_difficulty = $average_culty['Test'];
 	$average_difficulty = round($average_difficulty,1);
 
-	$average_f = mysqli_query($db, "SELECT AVG(fun) 'Fun' FROM comments WHERE post_id = $APid");
+	$average_f = mysqli_query($db, "SELECT AVG(fun) 'Fun' FROM comments WHERE post_id = '$APid'");
 	$average_un = mysqli_fetch_assoc($average_f);
 	$average_fun = $average_un['Fun'];
 	$average_fun = round($average_fun,1);
@@ -98,7 +114,7 @@
 	
 	//$average_workload=$average_load[0];
 	// Receives a user id and returns the username
-	function getUsernameById($id)
+	/*function getUsernameById($id)
 	{
 		global $db;
 		$result = mysqli_query($db, "SELECT username FROM users WHERE id=" . $id . " LIMIT 1");
@@ -114,6 +130,7 @@
 		return $replies;
 	}
 	// Receives a post id and returns the total number of comments on that post
+	*/
 	function getCommentsCountByPostId($post_id)
 	{
 		global $db;
@@ -157,7 +174,7 @@ if (isset($_POST['comment_posted'])) {
 
 	$id = getTotalComments()+1;
 	//
-	$sql = "INSERT INTO `comments` (`id`, `user_id`, `post_id`, `ap_workload`, `teacher`, `test`, `fun`, `body`, `created_at`, `likes`) VALUES ($id, '$user_id' ,1, '$comment_workload', '$comment_teacher', '$comment_test', '$comment_fun', '$comment_text', now(), 1)";
+	$sql = "INSERT INTO `comments` (`id`, `user_id`, `post_id`, `ap_workload`, `teacher`, `test`, `fun`, `body`, `created_at`, `likes`) VALUES ($id, '$user_id' , $APid, '$comment_workload', '$comment_teacher', '$comment_test', '$comment_fun', '$comment_text', now(), 1)";
 
 	
 
@@ -225,7 +242,7 @@ if (isset($_POST['comment_posted'])) {
 				</div>"; */
 		$comment_info = array(
 			'comment' => $comment,
-			'comments_count' => getCommentsCountByPostId(1)
+			'comments_count' => getCommentsCountByPostId($APid)
 		);
 		echo json_encode($comment_info);
 		exit();
@@ -235,7 +252,7 @@ if (isset($_POST['comment_posted'])) {
 	}
 }
 // If the user clicked submit on reply form...
-if (isset($_POST['reply_posted'])) {
+/*if (isset($_POST['reply_posted'])) {
 	global $db;
 	// grab the reply that was submitted through Ajax call
 	$reply_text = $_POST['reply_text']; 
@@ -264,7 +281,7 @@ if (isset($_POST['reply_posted'])) {
 		exit();
 	}
 }
-
+*/
 if (isset($_POST['like_attempt'])) {
 	global $db;
 	$comment_id = $_POST['comment_id']; 
