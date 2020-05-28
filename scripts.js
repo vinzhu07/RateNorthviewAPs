@@ -41,6 +41,8 @@ $(document).ready(function () {
 		var comment_test = $('#comment_test').val();
 		var comment_fun = $('#comment_fun').val();
 		var comment_text = $('#comment_text').val();
+		var comment_class = document.getElementById("classname").textContent;
+		//console.log(comment_class)
 		var url = $('#comment_form').attr('action');
 		// Stop executing if not value is entered
 		if (comment_text === "") return;
@@ -53,6 +55,7 @@ $(document).ready(function () {
 				comment_test: comment_test,
 				comment_fun: comment_fun,
 				comment_text: comment_text,
+				comment_class: comment_class,
 				comment_posted: 1,
 				colors : bg()
 			},
@@ -61,14 +64,15 @@ $(document).ready(function () {
 				//console.log(document.cookie);
 				//console.log();
 				//console.log((data));
+				//alert(data);
 				var response = JSON.parse(data);
 				if (data === "error") {
 					alert('There was an error adding comment. Please try again');
 				}
 				else {
-
-					$('#comments-wrapper').prepend(response.comment)
-					$('#comments_count').text(response.comments_count);
+					//location.reload();
+					$('#comments-wrapper').prepend(response.comment);
+					document.getElementById("comments_count").innerText=Number(document.getElementById("comments_count").innerText)+1;
 					$('#comment_text').val('');
 					$('#comment_workload').val('');
 					$('#comment_teacher').val('');
