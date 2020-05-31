@@ -95,14 +95,12 @@ error_reporting(E_ERROR);
 				</ul>
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="">Home</a>
+						<a class="nav-link" href="index.html">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="" style="color:black;">APs</a>
+						<a class="nav-link" href="course-index-page.php" style="color:black;">APs</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="">Books</a>
-					</li>
+				
 					<li class="nav-item">
 						<a class="nav-link" href="">About</a>
 					</li>
@@ -140,18 +138,18 @@ error_reporting(E_ERROR);
 			<div class="col-md comments-section" id="AverageR" style="padding-top: 10px;">
 				<h3 style="font-size:30px; font-style:normal !important;" id="Titles">Average Ratings</h3>
 				<div id="description">
-					<TABLE>
-						<TR>
-							<TD style="width:20%;color: white!important;">Workload: <span id="average_work"><?php echo $average_workload ?></span> / 5 </TD>
-							<TD style="width:20%;color: white!important;">Teacher: <span id="average_teacher"><?php echo $average_teacher ?></span> / 5</TD>
-							<TD style="width:20%;color: white!important;">Difficulty: <span id="average_test"><?php echo $average_difficulty ?></span> / 5</TD>
-							<TD style="width:20%;color: white!important;">Fun: <span id="average_fun"><?php echo $average_fun ?></span> / 5</TD>
+					<TABLE style = "border:0px;">
+						<TR style = "border:0px;">
+							<TD style="width:20%;color: white!important; border:0px;">Workload: <span id="average_work"><?php echo $average_workload ?></span> / 5 </TD>
+							<TD style="width:20%;color: white!important; border:0px;">Teacher: <span id="average_teacher"><?php echo $average_teacher ?></span> / 5</TD>
+							<TD style="width:20%;color: white!important; border:0px;">Difficulty: <span id="average_test"><?php echo $average_difficulty ?></span> / 5</TD>
+							<TD style="width:20%;color: white!important; border:0px;">Fun: <span id="average_fun"><?php echo $average_fun ?></span> / 5</TD>
 						</TR>
-						<TR>
-							<TD style="width:20%;color: white!important;"><span id="average_workstars" style="vertical-align:center;"></span></TD>
-							<TD style="width:20%;color: white!important;"><span id="average_teachstars" style="vertical-align:center;"></span></TD>
-							<TD style="width:20%;color: white!important;"><span id="average_teststars" style="vertical-align:center;"></span></TD>
-							<TD style="width:20%;color: white!important;"><span id="average_funstars" style="vertical-align:center;"></span></TD>
+						<TR style = "border:0px;">
+							<TD style="width:20%;color: white!important; border:0px;"><span id="average_workstars" style="vertical-align:center;"></span></TD>
+							<TD style="width:20%;color: white!important; border:0px;"><span id="average_teachstars" style="vertical-align:center;"></span></TD>
+							<TD style="width:20%;color: white!important; border:0px;"><span id="average_teststars" style="vertical-align:center;"></span></TD>
+							<TD style="width:20%;color: white!important; border:0px;"><span id="average_funstars" style="vertical-align:center;"></span></TD>
 						</TR>
 
 					</TABLE>

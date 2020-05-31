@@ -1,0 +1,39 @@
+body {
+    /* Location of the image */
+    background-image: url("img/Northivew-Faint.jpg");
+    
+    /* Background image is centered vertically and horizontally at all times */
+    background-position: center center;
+    
+    /* Background image doesn't tile */
+    background-repeat: no-repeat;
+    
+    /* Background image is fixed in the viewport so that it doesn't move when 
+       the content's height is greater than the image's height */
+    background-attachment: fixed;
+    
+    /* This is what makes the background image rescale based
+       on the container's size */
+    background-size: cover;
+    
+    /* Set a background color that will be displayed
+       while the background image is loading */
+    background-color: #4ecccc;
+    font-family: "Gill Sans";  font-style: normal; font-variant: normal;
+    color:#0a5e11;
+   font-size: 25px;
+   font-weight: bold;
+  }
+
+  #container {
+    display: table;
+    height: 80vh;
+    margin: 0 auto;
+    width: auto;
+}
+.content {
+    padding: 40px;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}

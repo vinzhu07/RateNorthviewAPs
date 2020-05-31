@@ -95,14 +95,12 @@ error_reporting(E_ERROR);
 				</ul>
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="">Home</a>
+						<a class="nav-link" href="index.html">Home</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="" style="color:black;">APs</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="">Books</a>
-					</li>
+				
 					<li class="nav-item">
 						<a class="nav-link" href="">About</a>
 					</li>
