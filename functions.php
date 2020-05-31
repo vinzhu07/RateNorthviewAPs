@@ -144,6 +144,18 @@ if (isset($_GET['class'])) {
 		submit any or all of the AP Portfolio Exams.";
 		$class_pic = "drawing.jpg";
 	}
+	if ($class == "Music"){
+		$class_name = "AP Music Theory";
+		$class_description = "The AP Music Theory course corresponds to one-to-two semesters of typical, introductory
+		college music theory coursework that covers topics such as musicianship, theory, and musical
+		materials and procedures. Musicianship skills, including dictation and listening skills, sightsinging, and harmony, are an important part of the course. Through the course, students develop
+		the ability to recognize, understand, and describe basic materials and processes of tonal music
+		that are heard or presented in a score. Development of aural (listening) skills is a primary objective.
+		Performance is also part of the curriculum through the practice of sight-singing. Students learn
+		basic concepts and terminology by listening to and performing a wide variety of music. Notational
+		skills, speed, and fluency with basic materials are emphasized.";
+		$class_pic = "musictheory.jpg";
+	}
 	if ($class == "Lang") {
 		$class_name = "AP English Language and Composition";
 		$class_description = "The AP English Language and Composition course focuses on the development and revision
@@ -165,7 +177,7 @@ if (isset($_GET['class'])) {
 		argumentative essays that require students to analyze and interpret literary works.";
 		$class_pic = "lit.jpg";
 	}
-	if ($class == "Gov"){
+	/*if ($class == "Gov"){
 		$class_name = "AP Comparative Government and Politics";
 		$class_description="AP Comparative Government and Politics introduces students to the rich diversity of political
 		life outside the United States. The course uses a comparative approach to examine the
@@ -176,7 +188,7 @@ if (isset($_GET['class'])) {
 		require them to read and interpret data, make comparisons and applications, and develop
 		evidence-based arguments.";
 		$class_pic="gov.jpg";
-	}
+	}*/
 	if ($class == "Euro"){
 		$class_name = "AP European History";
 		$class_description="In AP European History, students investigate significant events, individuals, developments,
