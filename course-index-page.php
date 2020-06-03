@@ -91,7 +91,7 @@ error_reporting(E_ERROR);
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav mr-auto">
-					<a class="navbar-brand" href="#">Rate Northview APs</a>
+					<a class="navbar-brand" href="index.html">Rate Northview APs</a>
 				</ul>
 				<ul class="navbar-nav">
 					<li class="nav-item">

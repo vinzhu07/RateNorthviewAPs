@@ -597,7 +597,7 @@ if (isset($_POST['comment_posted'])) {
 	$id = getTotalComments() + 1;
 	//
 	$sql = "INSERT INTO `comments` (`id`, `user_id`, `post_id`, `ap_workload`, `teacher`, `test`, `fun`, `body`, `created_at`, `likes`) VALUES ($id, '$user_id' , '$comment_class', '$comment_workload', '$comment_teacher', '$comment_test', '$comment_fun', '$comment_text', now(), 1)";
-	//debug_to_console($sql);
+	debug_to_console($sql);
 	//debug_to_console($APid);
 
 
