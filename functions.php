@@ -48,6 +48,7 @@ if (isset($_COOKIE['sort'])) {
 	$sort = 'created_at';
 }
 
+
 $username = null;
 $host = getenv('DB_HOST');
 if (!isset($host)) {
@@ -68,7 +69,7 @@ if ($database == null) {
 
 
 // connect to database
-$db = mysqli_connect($host, $username, $password, $database);
+$db = mysqli_connect('us-cdbr-east-05.cleardb.net', 'bd6a0fdfffe95b', 'c59a7820');
 
 //$db = mysqli_connect($host, $username, "", "comment-reply-system");
 $class_name = "";
