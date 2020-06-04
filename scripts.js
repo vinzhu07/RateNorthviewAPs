@@ -12,12 +12,11 @@ $(document).ready(function () {
 		status = 1;
 	}
 
-
+	if (document.getElementById('classname')){
 	var categories = ["average_work","average_teacher","average_test","average_fun"];
 	var ids = ["average_workstars","average_teachstars","average_teststars","average_funstars"];
 	for (a = 0; a<4;a++){
 
-	
 	var average_workload = (document.getElementById(categories[a])).innerHTML;
 	var average_workload = parseFloat(average_workload);
 	for (i = 0.5; i <5.5; i++) {
@@ -32,6 +31,7 @@ $(document).ready(function () {
 		}
 	  }
 	}
+}
 	// When user clicks on submit comment to add comment under post
 	$(document).on('click', '#submit_comment', function (e) {
 		e.preventDefault();

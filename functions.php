@@ -69,7 +69,18 @@ if ($database == null) {
 
 
 // connect to database
-$db = mysqli_connect('us-cdbr-east-05.cleardb.net', 'bd6a0fdfffe95b', 'c59a7820');
+//$db = mysqli_connect('us-cdbr-east-05.cleardb.net', 'bd6a0fdfffe95b', 'c59a7820');
+
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+$server = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$db = substr($url["path"], 1);
+
+$db = new mysqli($server, $username, $password, $db);
+
+
 //debug_to_console($db);
 //$db = mysqli_connect($host, $username, "", "comment-reply-system");
 $class_name = "";
