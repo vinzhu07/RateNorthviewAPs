@@ -70,7 +70,7 @@ if ($database == null) {
 
 // connect to database
 $db = mysqli_connect('us-cdbr-east-05.cleardb.net', 'bd6a0fdfffe95b', 'c59a7820');
-debug_to_console($db);
+//debug_to_console($db);
 //$db = mysqli_connect($host, $username, "", "comment-reply-system");
 $class_name = "";
 $class = "";
