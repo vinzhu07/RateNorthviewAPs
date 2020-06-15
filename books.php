@@ -98,14 +98,14 @@ error_reporting(E_ERROR);
 						<a class="nav-link" href="index.html">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="course-index-page.php" style="color:black;">APs</a>
+						<a class="nav-link" href="course-index-page.php" >APs</a>
 					</li>
-				
+
 					<li class="nav-item">
 						<a class="nav-link" href="about.html">About</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="books.html">Books</a>
+						<a class="nav-link" href="books.html"style="color:black;">Books</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#" onload="status()" id="loginstatus"></a>
@@ -120,48 +120,21 @@ error_reporting(E_ERROR);
 		<div class="row">
 			<div class=" post">
 
-				<h2 id="Titles" name = "Title"><?php echo $class_name ?></h2>
+				<h2 id="Titles" name="Title">Sell Your Old Books!</h2>
 
 				<div class="row">
-					<p class="col-md-6" id="description"> <?php echo $class_description ?></p>
-					<p class="col-md-6"><img src="img/<?php echo $class_pic ?>" alt="Title" id="picture" class="img-responsive center-block" style="width:90%;max-width:1000px;"></p>
-					<p id = "classname" style = "visibility: hidden;"><?php echo $class_name ?></p>
+					<p class="col-md-6" id="description"> Looking to sell your old AP textbooks, 5 Steps to 5 books, or other review material? Simply fill out the form below and wait for a student to contact you!</p>
+					<p class="col-md-6"><img src="img/book.png" alt="Title" id="picture" class="img-responsive center-block" style="width:40%;max-width:1000px;"></p>
+
 				</div>
-					<script>
-						if (document.getElementById("description").innerText==""){
-						document.getElementById("picture").src = "img/pizza.jpg";
-						document.getElementById("description").innerText="Hey, you're lost! Don't worry here's a pizza for you!";
-						//document.getElementbyId("Titles").innerText = "Wrong page";
-						document.getElementId("Titles").innerText= "Wrong Page";}
-					</script>
+
 
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md comments-section" id="AverageR" style="padding-top: 10px;">
-				<h3 style="font-size:30px; font-style:normal !important;" id="Titles">Average Ratings</h3>
-				<div id="description">
-					<TABLE style = "border:0px;">
-						<TR style = "border:0px;">
-							<TD style="width:20%;color: white!important; border:0px;">Workload: <span id="average_work"><?php echo $average_workload ?></span> / 5 </TD>
-							<TD style="width:20%;color: white!important; border:0px;">Teacher: <span id="average_teacher"><?php echo $average_teacher ?></span> / 5</TD>
-							<TD style="width:20%;color: white!important; border:0px;">Difficulty: <span id="average_test"><?php echo $average_difficulty ?></span> / 5</TD>
-							<TD style="width:20%;color: white!important; border:0px;">Fun: <span id="average_fun"><?php echo $average_fun ?></span> / 5</TD>
-						</TR>
-						<TR style = "border:0px;">
-							<TD style="width:20%;color: white!important; border:0px;"><span id="average_workstars" style="vertical-align:center;"></span></TD>
-							<TD style="width:20%;color: white!important; border:0px;"><span id="average_teachstars" style="vertical-align:center;"></span></TD>
-							<TD style="width:20%;color: white!important; border:0px;"><span id="average_teststars" style="vertical-align:center;"></span></TD>
-							<TD style="width:20%;color: white!important; border:0px;"><span id="average_funstars" style="vertical-align:center;"></span></TD>
-						</TR>
+				<h3 style="font-size:30px; font-style:normal !important;" id="Titles">Sell your old AP materials today!</h3>
 
-					</TABLE>
-					<!--</br></p>
-					<p style="font-size:17px;">  </br></p>
-					<p style="font-size:17px;">  </br></p>
-					<p style="font-size:17px;">  </br></p>
-					</br> -->
-				</div>
 
 			</div>
 		</div>
@@ -183,44 +156,85 @@ error_reporting(E_ERROR);
 
 
 				<?php if (isset($user_id)) : ?>
-					<form class="clearfix" action="post_details.php" method="post" id="comment_form">
-						Please rate this AP on the following aspects out of 5 stars. Be sure to fill out all the boxes!
+					<form class="clearfix"  method="post" action="books.php" id="comment_form">
+						Please provide the following information about the materials. Be sure to fill out all the boxes! We prefer you fill it out once for each AP class if you have multiple course materials you are looking to sell.
 						<br>
-						Workload (1 being lots, 5 being none):&emsp;&thinsp;&thinsp;&emsp;&thinsp;
+						<label for="course">Course:</label> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&thinsp;&thinsp;&emsp;&thinsp;&thinsp;&thinsp;
+						<select name="course" id="course">
+							<option value="AP 2-D Art and Design">AP 2-D Art and Design</option>
+							<option value="AP 3-D Art and Design">AP 3-D Art and Design</option>
+							<option value="AP Art History">AP Art History</option>
+							<option value="AP Drawing">AP Drawing</option>
+							<option value="AP Music Theory">AP Music Theory</option>
+							<option value="AP English Language and Composition">AP English Language and Composition</option>
+							<option value="AP English Literature and Composition">AP English Literature and Composition</option>
+							<option value="AP European History">AP European History</option>
+							<option value="AP Human Geography">AP Human Geography</option>
+							<option value="AP Macroeconomics">AP Macroeconomics</option>
+							<option value="AP Microeconomics">AP Microeconomics</option>
+							<option value="AP Psychology">AP Psychology</option>
+							<option value="AP US Government and Politics">AP US Government and Politics</option>
+							<option value="AP United States History">AP United States History</option>
+							<option value="AP World History: Modern">AP World History: Modern</option>
+							<option value="AP Calculus AB">AP Calculus AB</option>
+							<option value="AP Calculus BC">AP Calculus BC</option>
+							<option value="AP Computer Science A">AP Computer Science A</option>
+							<option value="AP Computer Science Principles">AP Computer Science Principles</option>
+							<option value="AP Statistics">AP Statistics</option>
+							<option value="AP Biology">AP Biology</option>
+							<option value="AP Chemistry">AP Chemistry</option>
+							<option value="AP Environmental Science">AP Environmental Science</option>
+							<option value="AP Physics 1: Algebra-Based">AP Physics 1: Algebra-Based</option>
+							<option value="AP Physics C: Electricity and Magnetism">AP Physics C: Electricity and Magnetism</option>
+							<option value="AP Physics C: Mechanics">AP Physics C: Mechanics</option>
+							<option value="AP Chinese Language and Culture">AP Chinese Language and Culture</option>
+							<option value="AP French Language and Culture">AP French Language and Culture</option>
+							<option value="AP German Language and Culture">AP German Language and Culture</option>
+							<option value="AP Latin">AP Latin</option>
+							<option value="AP Spanish Language and Culture">AP Spanish Language and Culture</option>
 
+						</select>
+
+						<br>
+						Book Name: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &thinsp; &thinsp;
 						<div class="inline-div" style="display:inline-block; vertical-align:middle;">
-							<textarea name="comment_workload" id="comment_workload" class="form-control" cols="10" rows="1"></textarea>
+							<textarea name="comment_book" id="comment_book" class="form-control" cols="10" rows="1"></textarea>
 						</div>
 						<br>
-						Teachers (1 is worst, 5 is the best): &emsp;&emsp;&emsp; &thinsp; &thinsp;
+						<label for="state"> Condition (New, Good, Used, Poor):&thinsp;&thinsp;
+						</label>
+						<select id="state" name="state">
+							<option value="New">New</option>
+							<option value="Good">Good</option>
+							<option value="Used">Used</option>
+							<option value="Poor">Poor</option>
+						</select>
+						
+						<br>
+						Price (Just the number): &thinsp;&thinsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 						<div class="inline-div" style="display:inline-block; vertical-align:middle;">
-							<textarea name="comment_teacher" id="comment_teacher" class="form-control" cols="10" rows="1"></textarea>
+							<textarea name="comment_price" id="comment_price" class="form-control" cols="10" rows="1"></textarea>
 						</div>
 						<br>
-						Difficulty (1 being impossible, 5 being easy):&thinsp;
-						<div class="inline-div" style="display:inline-block; vertical-align:middle;">
-							<textarea name="comment_test" id="comment_test" class="form-control" cols="10" rows="1"></textarea>
-						</div>
-						<br>
-						Fun (5 being the most fun): &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&thinsp;&thinsp;
-						<div class="inline-div" style="display:inline-block; vertical-align:middle;">
-							<textarea name="comment_fun" id="comment_fun" class="form-control" cols="10" rows="1"></textarea>
-						</div>
-						<br>
-						General Comments:
+						Contact info:&emsp;
 						<div class="inline-div" style="vertical-align:middle;">
-							<textarea name="comment_text" id="comment_text" class="form-control" cols="30" rows="3"></textarea>
+							<textarea name="comment_contact" id="comment_contact" class="form-control" cols="30" rows="1"></textarea>
+						</div>
+						<br>
+						Other:&emsp;&emsp;&emsp;&emsp;
+						<div class="inline-div" style="vertical-align:middle;">
+							<textarea name="comment_etc" id="comment_etc" class="form-control" cols="30" rows="1"></textarea>
 						</div>
 						</br>
-						<button class="btn btn-primary btn-sm pull-right" id="submit_comment">Submit comment </button>
+						<button class="btn btn-primary btn-sm pull-right" id="submit_book">Submit </button>
 					</form>
 				<?php else : ?>
 					<div class="well" style="margin-top: 20px;">
-						<h4 class="text-center">Sign in (Click login at the top right) to post a comment</h4>
+						<h4 class="text-center">Sign in (Click login at the top right) to post a book</h4>
 					</div>
 				<?php endif ?>
 				<!-- Display total number of comments on this post  -->
-				<h2 id="rating_title"><span id="comments_count"><?php echo count($comments) ?></span> Ratings(s)</h2>
+				<h2 id="rating_title"><span id="books_count"><?php echo count($books) ?></span> Book(s)</h2>
 				<a href="#" id="new" onclick="sortNew()"> Sort by New </a>
 				|
 				<a href="#" id="Top" onclick="sortTop()"> Sort by Popular </a>
@@ -229,44 +243,40 @@ error_reporting(E_ERROR);
 				</br>
 				<!-- comments wrapper -->
 				<div id="comments-wrapper">
-					<?php if (isset($comments)) : ?>
+					<?php if (isset($books)) : ?>
 						<!-- Display comments -->
-						<?php foreach ($comments as $comment) : ?>
+						<?php foreach ($books as $book) : ?>
 							<!-- comment -->
 							<div class="comment clearfix">
 
-								<table style="table-layout: fixed; width: 100% " onload="bkg();" id="unocomment<?php echo $comment['id']; ?>">
+								<table style="table-layout: fixed; width: 100% " onload="bkg();" id="unocomment<?php echo $book['id']; ?>">
 									<script>
 										var x = bg();
 										if (x % 2 == 1) {
-											var val = <?php echo $comment['id'] ?>;
+											var val = <?php echo $book['id'] ?>;
 											var elem = "unocomment" + val;
 											document.getElementById(elem).style.backgroundColor = '#85C2EF';
 										} else {
-											var val = <?php echo $comment['id'] ?>;
+											var val = <?php echo $book['id'] ?>;
 											var elem = "unocomment" + val;
 											document.getElementById(elem).style.backgroundColor = '#97D892';
 										}
 									</script>
-									<colgroup>
-
-										<col span="1" style="width: 10%;">
-										<col span="1" style="width: 90%;">
-									</colgroup>
+					
 									<tbody>
 										<tr>
 											<td style="text-align:center;">
 												<!--<span class="comment-name"> < ?php echo getUsernameById($comment['user_id']) ?></span>-->
-												<span class="comment-date"><?php echo date("F j, Y ", strtotime($comment["created_at"])); ?></span>
-												</br><u>Workload</u></br> <?php echo $comment['ap_workload']; ?> </br>
-												<u>Teacher </u></br><?php echo $comment['teacher']; ?> </br>
-												<u>Difficulty </u></br><?php echo $comment['test']; ?> </br>
-												<u>Fun </u></br><?php echo $comment['fun']; ?></br>
-												<a class="likes" href="#" id=<?php echo $comment['id']; ?> data-id="<?php echo $comment['id']; ?>"> <img src="thumbs.png" height="12" width="12"> <?php echo $comment['likes']; ?></a>
+												<span class="comment-date"><?php echo date("F j, Y ", strtotime($book["created_at"])); ?></span>
+												</br>Course: <?php echo $book['course']; ?> &emsp;&emsp;
+												Name: <?php echo $book['name']; ?> &emsp;&emsp;
+												Condition: <?php echo $book['state']; ?> &emsp;&emsp;
+												Price: $<?php echo $book['price']; ?>&emsp;&emsp;
+												Contact: <?php echo $book['contact']; ?>&emsp;&emsp;
+												Other: <?php echo $book['etc']; ?>
+												
 											</td>
-											<td style="vertical-align:middle; overflow-wrap:anywhere;">
-												<p><?php echo $comment['body']; ?></p>
-											</td>
+											
 										</tr>
 									</tbody>
 							</div>

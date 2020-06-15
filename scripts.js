@@ -109,6 +109,64 @@ $(document).ready(function () {
 		}
 		);
 	});
+
+	$(document).on('click', '#submit_book', function (e) {
+		e.preventDefault();
+		var x = document.getElementById("course");
+		var comment_course = x.options[x.selectedIndex].value;
+		var comment_book = $('#comment_book').val();
+		var y = document.getElementById("state")
+		var comment_state = y.options[y.selectedIndex].value;
+		var comment_price = $('#comment_price').val();
+		var comment_contact = $('#comment_contact').val();
+		var comment_etc = $('#comment_etc').val();
+		
+		//console.log(comment_class)
+		var url = $('#comment_form').attr('action');
+		// Stop executing if not value is entered
+		
+		$.ajax({
+			url: url,
+			type: "POST",
+			data: {
+				book_course: comment_course,
+				book_book: comment_book,
+				book_state: comment_state,
+				book_price: comment_price,
+				book_contact: comment_contact,
+				book_etc: comment_etc,
+				book_posted: 1,
+				colors : bg()
+			},
+			//dataType: 'text',
+			success: function (data) {
+				//console.log(document.cookie);
+				//console.log();
+				//console.log((data));
+				//alert(data);
+				var response = JSON.parse(data);
+				if (data === "error") {
+					alert('There was an error adding comment. Please try again');
+				}
+				else {
+					//location.reload();
+					$('#comments-wrapper').prepend(response.comment);
+					document.getElementById("books_count").innerText=Number(document.getElementById("books_count").innerText)+1;
+					$('#comment_course').val('');
+					$('#comment_book').val('');
+					$('#comment_state').val('');
+					$('#comment_price').val('');
+					$('#comment_contact').val('');
+					$('#comment_etc').val('');
+
+				}
+
+					
+			}
+		}
+		);
+	});
+
 	// When user clicks on submit reply to add reply under comment
 	$(document).on('click', '.reply-btn', function (e) {
 		e.preventDefault();
@@ -311,6 +369,8 @@ function sortTop(){
 	document.cookie = "sort=  likes;";
 	location.reload();
 }
+//if (document.getElementById("comments_count")){
+//var z = parseInt(document.getElementById("comments_count").innerText);}
 var z = 0;
 function bkg()
 {

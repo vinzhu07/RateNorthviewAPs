@@ -70,7 +70,7 @@ if ($database == null) {
 
 // connect to database
 //$db = mysqli_connect('us-cdbr-east-05.cleardb.net', 'bd6a0fdfffe95b', 'c59a7820');
-
+/*
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 $server = $url["host"];
@@ -79,10 +79,10 @@ $password = $url["pass"];
 $db = substr($url["path"], 1);
 
 $db = new mysqli($server, $username, $password, $db);
-
+*/
 
 //debug_to_console($db);
-//$db = mysqli_connect($host, $username, "", "comment-reply-system");
+$db = mysqli_connect($host, $username, "", "comment-reply-system");
 $class_name = "";
 $class = "";
 
@@ -501,6 +501,11 @@ $comments_query_result = mysqli_query($db, "SELECT * FROM comments WHERE post_id
 //debug_to_console("SELECT * FROM comments WHERE post_id=" . $APid . " ORDER BY " .$sort. " DESC");
 //debug_to_console('SELECT * FROM comments WHERE post_id= "' . $APid . '" ORDER BY ' .$sort. ' DESC');
 $comments = mysqli_fetch_all($comments_query_result, MYSQLI_ASSOC);
+
+$books_query_result = mysqli_query($db, "SELECT * FROM books ORDER BY course DESC");
+$books = mysqli_fetch_all($books_query_result, MYSQLI_ASSOC);
+
+
 //debug_to_console($APid);
 
 function debug_to_console($data)
@@ -588,7 +593,13 @@ function getTotalComments()
 	$data = mysqli_fetch_assoc($result);
 	return $data['total'];
 }
-
+function getTotalBooks()
+{
+	global $db;
+	$result = mysqli_query($db, "SELECT COUNT(*) AS total FROM books");
+	$data = mysqli_fetch_assoc($result);
+	return $data['total'];
+}
 
 //debug_to_console($APid);
 //...
@@ -685,6 +696,97 @@ if (isset($_POST['comment_posted'])) {
 		exit();
 	}
 }
+
+if (isset($_POST['book_posted'])) {
+	global $db;
+	// grab the comment that was submitted through Ajax call
+	$book_course =  $_POST['book_course'];
+	$book_book =  $_POST['book_book'];
+	$book_state =  $_POST['book_state'];
+	$book_price = (int) $_POST['book_price'];
+	$book_contact = $_POST['book_contact'];
+	$book_etc = $_POST['book_etc'];
+	// insert comment into database
+	//debug_to_console($comment_text);
+	//debug_to_console($comment_class);
+
+	$id = getTotalBooks() + 1;
+	//
+	$sql = "INSERT INTO `books` (`course`, `name`, `state`, `price`, `contact`, `etc`, `created_at`, `id`) VALUES ('$book_course', '$book_book' ,'$book_state', '$book_price', '$book_contact', '$book_etc',  now(), $id)";
+	//debug_to_console($sql);
+	//debug_to_console($APid);
+
+
+	$result = mysqli_query($db, $sql);
+	// Query same comment from database to send back to be displayed
+	$inserted_id = $db->insert_id;
+	$res = mysqli_query($db, "SELECT * FROM books WHERE id=$id");
+	$inserted_book = mysqli_fetch_assoc($res);
+	// if insert was successful, get that same comment from the database and return it
+	//<a class='likes' href='#' onclick='like()' data-id='" . $inserted_comment['id'] . "'> <img src = 'thumbs.jpg' height='12' width='12'>reply $inserted_comment['likes']</a>				
+	/*<!-- reply form -->
+	<form action='post_details.php' class='reply_form clearfix' id='comment_reply_form_" . $inserted_comment['id'] . "' data-id='" . $inserted_comment['id'] . "'>
+		<textarea class='form-control' name='reply_text' id='reply_text' cols='30' rows='2'></textarea>
+		<button class='btn btn-primary btn-xs pull-right submit-reply'>Submit reply</button>
+	</form>*/
+	$colors = (int) $_POST['colors'];
+	$bg = "";
+	if ($colors % 2 == 1) {
+		$bg = "#85C2EF";
+	} else {
+		$bg = "#97D892";
+	}
+	if ($result) {
+		$comment = "<div class='comment clearfix' >
+
+								<table style='table-layout: fixed; width: 100% ;background-color:" . trim($bg, '"') . "' onload='bkg();' id = 'unocomment" . $inserted_book['id'] . "'>
+								
+
+									<tbody>
+										<tr>
+										<td style='text-align:center;'>
+					
+										<span class='comment-date'>" .date("F j, Y ", strtotime($inserted_book["created_at"]))."</span>
+										</br>Course: ".$inserted_book['course']."  &emsp;&emsp;
+										Name: ".$inserted_book['name']." &emsp;&emsp;
+										Condition: ".$inserted_book['state']."  &emsp;&emsp;
+										Price: ".$inserted_book['price']." &emsp;&emsp;
+										Contact: ".$inserted_book['contact']." &emsp;&emsp;
+										Other: ".$inserted_book['etc']." ?>
+										
+									</td>
+										</tr>
+									</tbody>
+							</div>
+
+
+							</TABLE>";
+		/*$comment = "<div class='comment clearfix'>
+					<div class='comment-details'>
+						<span class='comment-date'>" . date('F j, Y ', strtotime($inserted_comment['created_at'])) . "</span>
+						<p> Workload: ". $inserted_comment['ap_workload'] . " / 5 </p>
+						<p> Teacher: " . $inserted_comment['teacher'] . " / 5 </p>
+						<p> Difficulty: " . $inserted_comment['test'] . " / 5 </p>
+						<p> Fun: " . $inserted_comment['fun'] . " / 5 </p>
+						<p> General Comments: " . $inserted_comment['body'] . "</p>
+						<a class='likes' onclick='like()' href='#' data-id='" . $inserted_comment['id'] . "'> <img src = 'thumbs.jpg' height='12' width='12'>". $inserted_comment['likes'] . "</a>
+
+					</div>
+					
+				</div>"; */
+		$comment_info = array(
+			'comment' => $comment,
+			'comments_count' => getTotalBooks()
+		);
+		echo json_encode($comment_info);
+		exit();
+	} else {
+		echo "error";
+		exit();
+	}
+}
+
+
 // If the user clicked submit on reply form...
 /*if (isset($_POST['reply_posted'])) {
 	global $db;
