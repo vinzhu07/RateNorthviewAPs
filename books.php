@@ -105,7 +105,7 @@ error_reporting(E_ERROR);
 						<a class="nav-link" href="about.html">About</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="books.html"style="color:black;">Books</a>
+						<a class="nav-link" href="books.php"style="color:black;">Books</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#" onload="status()" id="loginstatus"></a>
