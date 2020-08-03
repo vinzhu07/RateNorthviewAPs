@@ -82,7 +82,8 @@ $db = new mysqli($server, $username, $password, $db);
 
 /*
 //debug_to_console($db);
-$db = mysqli_connect($host, $username, "", "comment-reply-system");*/
+*/
+//$db = mysqli_connect($host, $username, "", "comment-reply-system");
 $class_name = "";
 $class = "";
 

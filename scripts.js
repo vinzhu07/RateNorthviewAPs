@@ -41,7 +41,9 @@ $(document).ready(function () {
 		var comment_test = $('#comment_test').val();
 		var comment_fun = $('#comment_fun').val();
 		var comment_text = $('#comment_text').val();
+		var comment_text = sanitize(comment_text);
 		var comment_class = document.getElementById("classname").textContent;
+
 		//console.log(comment_class)
 		var url = $('#comment_form').attr('action');
 		// Stop executing if not value is entered
@@ -389,3 +391,17 @@ function bg(){
 	z=z+1;
 	return z;
 }
+
+
+function sanitize(string) {
+	const map = {
+		'&': '&amp;',
+		'<': '&lt;',
+		'>': '&gt;',
+		'"': '&quot;',
+		"'": '&#x27;',
+		"/": '&#x2F;',
+	};
+	const reg = /[&<>"'/]/ig;
+	return string.replace(reg, (match)=>(map[match]));
+  }
